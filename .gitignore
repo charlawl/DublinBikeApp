@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+bin/
+pyvenv.cfg
+dub_bike/

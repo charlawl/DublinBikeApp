@@ -1,5 +1,35 @@
-<html>
-
-<h1>This is a flask app.</h1>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>DublinBike</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css_reset.css' )}}">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/custom.css' )}}">
+</head>
+<body>
+	<main>
+		<header>
+			<h1>Dublin Bikes App</h1>
+		</header>
+		<section class="map">
+			<div class="map__box">
+				<div id="map__box__locations"></div>
+			</div><!-- /.map -->
+			<aside>
+				<div class="data">
+					datadatad
+				</div><!-- /.data -->
+			</aside>
+		</section>
+		<footer>
+			<h5>Developed by</h5>
+			<p class="developers">
+				<span><a href="https://github.com/charlawl" target="blank">Charlotte</a></span><span><a href="https://github.com/lookonthebrightside" target="blank">Nkosi</a></span><span><a href="https://github.com/hinfeyg2" target="blank">Gavin</a></span>
+			</p><!-- /.developers -->
+		</footer>
+	</main>
+	<script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgq4yrfltcq5whIspSNsuNMqXIPp8qANs&callback=initMap"></script>
+</body>
 </html>

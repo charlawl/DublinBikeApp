@@ -66,5 +66,5 @@ class Weather(Base):
     cod = Column(Integer)
 
 # path to DB
-engine = create_engine('mysql+mysqldb://hinfeyg2:ftz6wn77@localhost:3306/dubbikesdatabase')
+engine = create_engine('mysql+mysqldb://hinfeyg2:[password]@localhost:3306/dubbikesdatabase')
 Session = sessionmaker(bind=engine)

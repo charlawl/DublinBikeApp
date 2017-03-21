@@ -10,7 +10,7 @@ dublinbikeapp.ini
 dublinbikeappSAFE/
 dublinbikeapp.sock
 wsgi.py
-
+nohup.out
 
 # C extensions
 *.so

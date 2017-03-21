@@ -21,7 +21,7 @@ function initMap() {
             var latlng = new google.maps.LatLng(station_data[i].position_lat, station_data[i].position_long);
             var name = station_data[i].name;
             var address = station_data[i].address;
-            var st_number = station_data[i].station_number;
+            var st_number = station_data[i].number;
             createMarker(latlng, name, address, st_number);
             bounds.extend(latlng);
         }

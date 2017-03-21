@@ -7,12 +7,12 @@ Base.metadata.create_all(engine)
 print("tables recreated")
 
 contract_name = 'Dublin'
-data = json.load(open('static/Dublin.json'))
+data = json.load(open('static/misc/station_data.json'))
 print("loading", len(data), "entries")
 
 session = Session()
 for station in data:
-    kwargs = {'id': '{}_{}'.format(contract_name, station['number']),
+    kwargs = {'number': station['number'],
               'contract_name': 'Dublin',
               'name': station['name'],
               'address': station['address'],

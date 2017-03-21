@@ -3,13 +3,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from datetime import datetime
 
 Base = declarative_base()
 
 
 class Station(Base):
     __tablename__ = "station"
-    id = Column(String(50), primary_key=True, autoincrement=False)
+    number = Column(Integer, primary_key=True, autoincrement=False)
     contract_name = Column(String(250), nullable=False)
     name = Column(String(250), nullable=False)
     address = Column(String(250), nullable=False)
@@ -17,22 +18,36 @@ class Station(Base):
     position_long = Column(Float, nullable=False)
     banking = Column(Boolean, nullable=True)
     bonus = Column(Boolean, nullable=True)
+    station_usage = relationship("UsageData")
+
 
     @property
-    def station_number(self):
-        return self.id.split("_")[1]
+    def last_updated(self):
+        try:
+            return max(self.station_usage, key=lambda x: x.last_update).dt_last_update
+        except ValueError:
+            return datetime.fromtimestamp(0)
 
 
 class UsageData(Base):
     __tablename__ = "bike_usage"
     id = Column(Integer, primary_key=True)
-    station_id = Column(String(50), ForeignKey('station.id'))
-    station = relationship(Station)
+    station_id = Column(Integer, ForeignKey('station.number'))
     status = Column(Boolean, nullable=False)
     bike_stands = Column(Integer, nullable=False)
     available_bike_stands = Column(Integer, nullable=False)
     available_bikes = Column(Integer, nullable=False)
     last_update = Column(DateTime, nullable=False)
+
+
+    @property
+    def dt_last_update(self):
+        return self.last_update
+
+
+    @dt_last_update.setter
+    def dt_last_update(self, val):
+        self.last_update = datetime.fromtimestamp(int(val)/1000)
 
 
 class Weather(Base):
@@ -59,12 +74,17 @@ class Weather(Base):
     sys_id = Column(Integer)
     sys_message = Column(Float)
     sys_country = Column(String(2))
-    sys_sunrise = Column(String(45))
-    sys_sunset = Column(String(45))
+    sys_sunrise = Column(DateTime)
+    sys_sunset = Column(DateTime)
     city_id = Column(Integer)
     city_name = Column(String(6))
     cod = Column(Integer)
 
 # path to DB
-engine = create_engine('mysql+mysqldb://hinfeyg2:[password]@localhost:3306/dubbikesdatabase')
+#engine = create_engine('mysql+mysqldb://hinfeyg2:[password]@localhost:3306/dubbikesdatabase')
+
+engine = create_engine('mysql+mysqldb://charlottehearne:charlottehearne@localhost:3306/sqlalchemy_test')
+
 Session = sessionmaker(bind=engine)
+
+

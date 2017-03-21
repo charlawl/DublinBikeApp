@@ -1,8 +1,11 @@
 from flask import Flask, render_template, jsonify
 app = Flask(__name__)
-from model import Session, Station
+from dublinbikeapp.model import Session, Station
 
 session = Session()
+
+from flask import Flask
+app = Flask(__name__)
 
 @app.route("/")
 def homepage():
@@ -21,3 +24,4 @@ def get_station():
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host='localhost')
+

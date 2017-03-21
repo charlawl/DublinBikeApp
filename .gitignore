@@ -3,6 +3,15 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+# Ignore Files On Server:
+dublinbikeappGIT/
+dublinbikeapp.ini
+dublinbikeappSAFE/
+dublinbikeapp.sock
+wsgi.py
+
+
 # C extensions
 *.so
 

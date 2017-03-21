@@ -90,3 +90,6 @@ ENV/
 bin/
 pyvenv.cfg
 dub_bike/
+
+#Pycharm stuff
+.idea/

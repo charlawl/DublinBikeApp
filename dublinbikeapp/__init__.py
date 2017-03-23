@@ -20,6 +20,7 @@ def get_station():
         for station in entries:
             data = {f: getattr(station, f) for f in fields}
             json_station.append(data)
+        session.close()
         return jsonify(json_station)
 
 if __name__ == "__main__":

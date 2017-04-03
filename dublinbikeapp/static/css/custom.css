@@ -1,0 +1,74 @@
+/*General Styles*/
+*{
+	font-family: "Lato", sans-serif;
+	font-size: 12px;
+}
+h1,h2,h3,h4,h5,h6{
+	text-align: center;
+	padding: 0.3rem;
+	font-family: "Lato", sans-serif;
+}
+h1{
+	font-size: 1.8rem;
+}
+h2{
+	font-size: 1.6rem;
+}
+h3{
+	font-size: 1.5rem;
+}
+h4{
+	font-size: 1.4rem;
+}
+h5{
+	font-size: 1.2rem;
+}
+h6{
+	font-size: 1.1rem;
+}
+p{
+	font-size: 1rem;
+}
+
+/*MAP*/
+.map{
+	display: flex;
+	flex-flow: row wrap;
+	padding: 0.4rem;
+}
+.map__box{
+	width: 70%;
+}
+aside{
+	width:  30%;
+}
+#map__box__locations,
+.data{
+	padding: 0.4rem;
+	height: 80vh;
+	min-width:  50%;
+	padding: 0;
+	overflow:hidden;
+}
+.info_box{
+	font-weight: 600;
+}
+/*Footer*/
+footer{
+	background-color: #36454F;
+	color: whitesmoke;
+	padding: 0.4rem;
+}
+footer .developers{
+	text-align: center;
+}
+footer .developers a{
+	color: white;
+	text-decoration: none;
+}
+footer .developers a:hover{
+	color: grey;
+}
+footer span{
+	padding:  0 2rem;
+}

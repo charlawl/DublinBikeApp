@@ -3,6 +3,15 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+# Ignore Files On Server:
+dublinbikeappGIT/
+dublinbikeapp.ini
+dublinbikeappSAFE/
+dublinbikeapp.sock
+wsgi.py
+nohup.out
+
 # C extensions
 *.so
 
@@ -87,3 +96,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+bin/
+pyvenv.cfg
+dub_bike/
+
+#Pycharm stuff
+.idea/

@@ -1,4 +1,4 @@
-from model import Session, Base, Station, engine
+from model import db_session, Base, Station, engine
 import json
 
 Base.metadata.drop_all(engine, checkfirst=True)
@@ -10,7 +10,6 @@ contract_name = 'Dublin'
 data = json.load(open('static/misc/station_data.json'))
 print("loading", len(data), "entries")
 
-session = Session()
 for station in data:
     kwargs = {'number': station['number'],
               'contract_name': 'Dublin',
@@ -21,6 +20,6 @@ for station in data:
               'banking': station['banking'],
               'bonus': station['bonus']}
     new_station = Station(**kwargs)
-    session.add(new_station)
+    db_session.add(new_station)
 
-session.commit()
+db_session.commit()

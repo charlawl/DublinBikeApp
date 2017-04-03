@@ -9,7 +9,6 @@ function get_data(callback, resource, resource_id) {
     }
     
     xhr.onreadystatechange = function () {
-        console.log("Hi");
         if (xhr.readyState == 4 && xhr.status == 200) {
             response = JSON.parse(xhr.responseText);
             callback(response);

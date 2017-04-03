@@ -17,7 +17,7 @@
 				<div id="map__box__locations"></div>
 			</div><!-- /.map -->
 			<aside>
-				<div class="data">
+				<div id="data_chart">
 					datadatadata
 				</div><!-- /.data -->
 			</aside>
@@ -29,8 +29,10 @@
 			</p><!-- /.developers -->
 		</footer>
 	</main>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/requests.js') }}"></script>
 	<script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgq4yrfltcq5whIspSNsuNMqXIPp8qANs&callback=initMap"></script>
+
 </body>
 </html>

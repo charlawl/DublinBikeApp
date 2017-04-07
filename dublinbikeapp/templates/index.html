@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>DublinBike</title>
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css_reset.css' )}}">
+    	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css_reset.css' )}}">
+{#    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/weather.css' )}}">#}
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/custom.css' )}}">
 </head>
@@ -12,6 +13,7 @@
 		<header>
 			<h1>Dublin Bikes App</h1>
 		</header>
+        {% include 'weather.html' %}
 		<section class="map">
 			<div class="map__box">
 				<div id="map__box__locations"></div>
@@ -22,12 +24,12 @@
 				</div><!-- /.data -->
 			</aside>
 		</section>
-		<footer>
+		<div class="my-footer">
 			<h5>Developed by</h5>
 			<p class="developers">
 				<span><a href="https://github.com/charlawl" target="blank">Charlotte</a></span><span><a href="https://github.com/lookonthebrightside" target="blank">Nkosi</a></span><span><a href="https://github.com/hinfeyg2" target="blank">Gavin</a></span>
 			</p><!-- /.developers -->
-		</footer>
+		</div>
 	</main>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/requests.js') }}"></script>

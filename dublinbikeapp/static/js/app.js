@@ -84,3 +84,9 @@ function initMap() {
 
 
 }
+
+function weather_display(data) {
+    console.log(data);
+}
+
+weather_forecast(weather_display);

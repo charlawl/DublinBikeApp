@@ -29,46 +29,57 @@ h6{
 p{
 	font-size: 1rem;
 }
-
+main{
+    height: 100vh;
+}
 /*MAP*/
 .map{
-	display: flex;
+    display: flex;
 	flex-flow: row wrap;
 	padding: 0.4rem;
+
 }
 .map__box{
-	width: 70%;
+	width: 50%;
+
 }
 aside{
-	width:  30%;
+	width:  50%;
 }
 #map__box__locations,
 .data{
+    margin-left: 125px;
+    margin-bottom: 30px;
 	padding: 0.4rem;
-	height: 80vh;
+	height: 45vh;
+    width: 60vh;
 	min-width:  50%;
-	padding: 0;
 	overflow:hidden;
 }
 .info_box{
 	font-weight: 600;
 }
 /*Footer*/
-footer{
+.my-footer{
 	background-color: #36454F;
 	color: whitesmoke;
-	padding: 0.4rem;
+    width: 100vw;
+	/*padding: 0.4rem;*/
+    display: inline-block;
+    bottom : 0;
+    height : 60px;
+    /*margin-bottom : -35px;*/
 }
-footer .developers{
+.my-footer .developers{
 	text-align: center;
 }
-footer .developers a{
+.my-footer .developers a{
 	color: white;
 	text-decoration: none;
 }
-footer .developers a:hover{
+.my-footer .developers a:hover{
 	color: grey;
 }
-footer span{
+.my-footer span{
 	padding:  0 2rem;
 }

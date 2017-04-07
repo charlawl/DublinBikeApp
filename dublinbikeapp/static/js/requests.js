@@ -21,4 +21,24 @@ function get_data(callback, resource, resource_id) {
     xhr.send();
 }
 
+function weather_forecast(callback) {
+    var xhr = new XMLHttpRequest();
+//  If you would like to switch back to the JSON file only, please uncomment line 18 and comment out line 19
 
+//        var daily = "daily.json";
+    var daily = "http://api.openweathermap.org/data/2.5/forecast/daily?id=2964574&units=metric&APPID=1f0867a1f0c8ffc3bd29767c8aed1cb2";
+    var weatherData;
+
+
+    xhr.onreadystatechange = function () {
+        console.log("Hi");
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            weatherData = JSON.parse(xhr.responseText);
+            callback(weatherData);
+
+        }
+    };
+
+    xhr.open("GET", daily, true);
+    xhr.send();
+}

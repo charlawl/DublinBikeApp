@@ -1,0 +1,38 @@
+<div class="forecast-table">
+				<div class="container">
+					<div class="forecast-container">
+						<div class="today forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weather_data[0]['weekday'] }}</div>
+								<div class="date">{{ weather_data[0]['date'] }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="location">Dublin</div>
+								<div class="degree">
+									<div class="num">{{ weather_data[0]['temp']['day'] }}<sup>o</sup>C</div>
+									<div class="forecast-icon">
+										<img src="{{url_for('static', filename=weather_data[0]['icon_filename']) }}" alt="" width=90>
+									</div>
+								</div>
+								<span><img src="{{url_for('static', filename='icons/icon-umberella.png')}}" alt="">{{ weather_data[0]['humidity'] }}%</span>
+								<span><img src="{{url_for('static', filename='icons/icon-wind.png')}}" alt="">{{ weather_data[0]['speed'] }}km/h</span>
+								<span><img src="{{url_for('static', filename='icons/icon-compass.png')}}" alt="">{{ weather_data[0]['deg'] }}</span>
+							</div>
+						</div>
+                        {% for day in weather_data[1:-1] %}
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ day['weekday'] }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{url_for('static', filename=day['icon_filename']) }}" alt="" width=48>
+								</div>
+								<div class="degree">{{ day['temp']['max'] }}<sup>o</sup>C</div>
+								<small>{{ day['temp']['min'] }}<sup>o</sup></small>
+							</div>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>

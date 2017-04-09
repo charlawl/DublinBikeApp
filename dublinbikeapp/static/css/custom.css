@@ -29,38 +29,35 @@ h6{
 p{
 	font-size: 1rem;
 }
-main{
-    height: 100vh;
-}
+
 /*MAP*/
 .map{
-    display: flex;
+  display: flex;
 	flex-flow: row wrap;
 	padding: 0.4rem;
-
 }
-.map__box{
-	width: 50%;
-
+.info_box_title:hover{
+	cursor: pointer;
 }
 aside{
 	width:  50%;
 }
 #map__box__locations,
 .data{
-    margin-left: 125px;
-    margin-bottom: 30px;
 	padding: 0.4rem;
-	height: 45vh;
-    width: 60vh;
+	height: 70vh;
+  /* width: 60vh; */
 	min-width:  50%;
 	overflow:hidden;
+}
+.map__box{
+
 }
 .info_box{
 	font-weight: 600;
 }
 /*Footer*/
-.my-footer{
+footer{
 	background-color: #36454F;
 	color: whitesmoke;
     width: 100vw;
@@ -70,16 +67,43 @@ aside{
     height : 60px;
     /*margin-bottom : -35px;*/
 }
-.my-footer .developers{
+footer .developers{
 	text-align: center;
 }
-.my-footer .developers a{
+footer .developers a{
 	color: white;
 	text-decoration: none;
 }
-.my-footer .developers a:hover{
+footer .developers a:hover{
 	color: grey;
 }
-.my-footer span{
+footer span{
 	padding:  0 2rem;
 }
+
+/* Weather Widget */
+.forecast-table,
+.day{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+.next__day{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.panel-success>.panel-heading {
+    color: white;
+    background-color: #313131;
+    border-color: #313131;
+}
+.panel-success {
+    border-color: #313131;
+}
+.forecast-table img{
+	max-width: 2rem;
+}
+

@@ -1,39 +1,32 @@
 var infoWindow;
-
 function drawChart(chart_data) {
-    console.log(chart_data);
+    var data = google.visualization.arrayToDataTable(chart_data);
+    //   var data = new google.visualization.arrayToDataTable(chart_data);
+    var options = {
+        chart: {
+            title: 'Bikes vs. Time',
+            subtitle: 'Hourly dispaly of available bikes and bike stands'
+        },
+        height: 400,
+        legend: {
+            position: 'top',
+            maxLines: 3
+        },
+        bar: {
+            groupWidth: '75%'
+        },
+        isStacked: true,
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('data_chart'));
+    chart.draw(data, options);
+}
 
-        var data = google.visualization.arrayToDataTable(chart_data);
-        //   var data = new google.visualization.arrayToDataTable(chart_data);
-
-
-        var options = {
-            chart: {
-
-                title: 'Bikes vs. Time',
-                subtitle: 'Hourly dispaly of available bikes and bike stands'
-            },
-            height: 400,
-            legend: {position: 'top', maxLines: 3},
-            bar: {groupWidth: '75%'},
-            isStacked: true,
-
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('data_chart'));
-        // var chart = new google.visualization.LineChart(document.getElementById('data_chart'));
-
-
-        chart.draw(data, options);
-    }
-
-
-function click_marker(st_number){
+function click_marker(st_number) {
     get_data(drawChart, "stations", st_number);
 }
 
-
 function initMap() {
+    var map, heatmap;
     var dublin = {
         lat: 53.3575945,
         lng: -6.2613842
@@ -43,11 +36,35 @@ function initMap() {
         zoom: 15,
         mapTypeId: 'roadmap'
     };
-    var map = new google.maps.Map(document.getElementById('map__box__locations'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map__box__locations'), mapOptions);
+
+    // Get data from bikes api======
+    var result;
+    $.ajax({
+        url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a982c88ae2bd27c612550bff6eedaa3e8e25d8bc&contract=Dublin',
+        dataType: "json",
+        success: function(data) {
+            result = [];
+            // create new spot for heatmap for stations with less than 5 bikes available
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].available_bikes < 5) {
+                    result.push(new google.maps.LatLng(data[i].position.lat, data[i].position.lng))
+                }
+            }
+            // draw the heatmap
+            heatmap = new google.maps.visualization.HeatmapLayer({
+                data: result,
+                map: map,
+                radius: 15
+            });
+        }
+    });
+    // ============================
     infoWindow = new google.maps.InfoWindow();
-    google.maps.event.addListener(map, 'click', function () {
+    google.maps.event.addListener(map, 'click', function() {
         infoWindow.close();
     });
+
     function show_stations(station_data) {
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < station_data.length; i++) {
@@ -70,19 +87,17 @@ function initMap() {
             title: name,
             icon: "http://labs.google.com/ridefinder/images/mm_20_blue.png"
         });
-        google.maps.event.addListener(marker, 'click', function () {
+        google.maps.event.addListener(marker, 'click', function() {
             var info_box_content = '<div class="info_box">' +
-                '<div class="info_box_title" onclick="return click_marker(' + st_number+ ');">' +
+                '<div class="info_box_title" onclick="return click_marker(' + st_number + ');">' +
                 '<a>' + name + '</a></div>';
             infoWindow.setContent(info_box_content);
             infoWindow.open(map, marker);
         });
     }
-
-    google.charts.load('current', {'packages': ['corechart']});
-
-
-
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
 }
 
 function weather_display(data) {

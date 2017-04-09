@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify
-app = Flask(__name__)
 from dublinbikeapp.model import db_session, Station, UsageData
 from datetime import datetime
 import requests

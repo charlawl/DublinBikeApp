@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float, Boolean, DateTime
+from sqlalchemy import and_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine, func
@@ -30,6 +31,15 @@ class Station(Base):
             return max(self.station_usage, key=lambda x: x.last_update).dt_last_update
         except ValueError:
             return datetime.fromtimestamp(0)
+
+    @classmethod
+    def get_current_station_info(cls, dbsession):
+        sub = dbsession.query(UsageData.station_id, func.max(UsageData.id).label('max_update')).group_by(
+            UsageData.station_id).subquery()
+        return dbsession.query(
+            UsageData.last_update,
+             UsageData.available_bike_stands, UsageData.available_bikes).join(sub, and_(
+                sub.c.max_update == UsageData.id)).all()
 
 
 class UsageData(Base):
@@ -67,6 +77,8 @@ class UsageData(Base):
 
         station.extend([(a, float(b), float(c)) for a, b, c in station_data])
         return station
+
+
 
 
 class Weather(Base):
@@ -108,15 +120,20 @@ db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflus
 
 if __name__=="__main__":
     station_id = 42
-    # station = db_session.query(Station).get(station_id)
-    # print(list(map(lambda x: x.to_json(fields=["available_bikes", "available_bike_stands", "last_update"]),  station.station_usage)))
-    station = db_session.query(Station).get(station_id)
-    station_usage = station.station_usage.group_by(func.hour(UsageData.last_update))
 
-    # station = db_session.query(Station.number, UsageData.last_update, UsageData.available_bikes, UsageData.available_bike_stands)\
-    #     .join(Station.station_usage)\
-    #     .filter(Station.number==station_id, func.weekday(UsageData.last_update) == 0).all()
-    # station_usage = station.station_usage("available_bikes")
-    # station_usage.options(load_only("available_bikes"))
-    print(station_usage)
-    print(station)
+    static_info = db_session.query(Station.number,
+                                   Station.name,
+                                   Station.address,
+                                   Station.position_lat,
+                                   Station.position_long).all()
+    dynamic_info = Station.get_current_station_info(db_session)
+    static_fields = ['number', 'name', 'address', 'position_lat', 'position_long']
+    dynamic_fields = ['last_update', 'available_bike_stands', 'available_bikes']
+
+    json_data = [dict(zip(static_fields + dynamic_fields, static + dynamic))
+                 for static, dynamic in
+                 zip(static_info, dynamic_info)]
+    print(json_data)
+
+    # print(Station.get_current_station_info(db_session))
+

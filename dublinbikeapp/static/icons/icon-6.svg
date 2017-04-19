@@ -5,8 +5,8 @@
 	 width="58.516px" height="35.412px" viewBox="0 0 58.516 35.412" style="enable-background:new 0 0 58.516 35.412;"
 	 xml:space="preserve">
 <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="48.3164" y1="0.4604" x2="10.5301" y2="38.2467">
-	<stop  offset="0" style="stop-color:#31C2DD"/>
-	<stop  offset="1" style="stop-color:#0B9BD7"/>
+	<stop  offset="0" style="stop-color:#59b75c"/>
+	<stop  offset="1" style="stop-color:#59b75c"/>
 </linearGradient>
 <path style="fill:url(#SVGID_1_);" d="M50.395,5.557c-0.413,0-0.825,0.032-1.235,0.097C47.744,2.261,44.435,0,40.655,0
 	c-4.44,0-8.21,3.22-9.052,7.447c-1.339,0.034-2.583,0.441-3.644,1.115c-1.938-1.275-4.253-2.006-6.72-2.006

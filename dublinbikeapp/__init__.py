@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from dublinbikeapp.model import db_session, Station, UsageData
+from model import db_session, Station, UsageData, Weather
 from datetime import datetime
 import requests
 from sqlalchemy import func
@@ -40,6 +40,14 @@ def get_station_data_weekly(station_id):
     return jsonify(data)
 
 
+@app.route("/getRainDay/<station_id>")
+def get_weather(station_id):
+    # run a query to get today but wet.
+    wetDay = Weather.findWetWeatherDays(db_session, datetime.today().weekday())
+    # pass that day into the get bikes db and return the average bike usage for that day.
+    return jsonify(UsageData.get_bikes_for_wetday(db_session, wetDay, station_id))
+
+
 @app.route("/stations/")
 def get_station():
 
@@ -54,6 +62,7 @@ def get_station():
 
     json_data = [dict(zip(static_fields+dynamic_fields, static+dynamic)) for static, dynamic in zip(static_info, dynamic_info)]
     return jsonify(json_data)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host='localhost')

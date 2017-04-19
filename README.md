@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/charlawl/DublinBikeApp.svg?token=67ZRMCE3p6XpMKUH71z1&branch=development)](https://travis-ci.com/charlawl/DublinBikeApp)
+
 # DublinBikeApp
 
 This is the documentation for DublinBikesApplication. Here you will find all the technologies used in the software. You will also find detailed steps to get the project running on your local machine. This document also details some housekeeping rules and a coding style guide that should be used when contributing.
@@ -10,9 +12,15 @@ We are not strictly following any coding styleguide for this application but    
 ### We use the following tools :
 
 [Appear](https://appear.in/) - Video conferencing / Standup meetings
+
 [GoogleDocs](https://www.google.com/docs/about/) - Standup logs / Documentation / Meeting Minutes
+
 [Trello](https://trello.com/) - Project management / Kanban / Burndown Chart
+
 [Slack](https://slack.com/) - Instant messaging
+
+[Travis](https://travis-ci.com/) - Continuous Integration
+
 [Git](https://git-scm.com/) and [Github](https://github.com/) - Source code management / version control
 
 ### GitFlow - Branching model for Git
@@ -22,14 +30,17 @@ We will use a watered down version of GitFlow. The main branches are:
 ```master``` - Deployed version
 
 Code is merged into the ```master``` branch at the end of the sprint. All pull requests are made to the development branch. Branch names start with initials. The following is an example of branch naming:
+
 ```nn_create_sql_database```
+
 ```ch_store_api_stream_to_database```
+
 ```gh_display_coordinates_on_map```
 e.t.c
 
 ### Merge conflicts
 
-Merge conflicts are to be fixed on personal branches before making a pull request. This is; before making a pull request, do a ```$git pull development``` on your branch to get changes on the development branch(if any).
+Merge conflicts are to be fixed on personal branches before making a pull request. This is; before making a pull request, do a ```$git pull development``` and merge your own branch into that to get changes on the development branch.
 
 As a general rule, we agreed that contributors should not merge their own work. We will tag the other collaborators on pull request for them to review the code and hopefully merge it.
 
@@ -50,5 +61,9 @@ If new packages are used, they should be appended on to the requirements.txt fil
 ```$ python dublinbikeapp/__init__.py```
 
 ### Testing
-We are using Python's [unittest](https://docs.python.org/3/library/unittest.html#module-unittest) testing framework for unit testing. The tests can be run with the following command :
+We are using Python's [unittest](https://docs.python.org/3/library/unittest.html#module-unittest) testing framework for unit testing. Locally, tests can be run with the following command :
+
 ```$ python test.py -v```
+
+### Continous Integration
+We are using Travis to monitor and test our builds.

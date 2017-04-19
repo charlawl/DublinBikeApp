@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/charlawl/DublinBikeApp.svg?token=67ZRMCE3p6XpMKUH71z1&branch=development)](https://travis-ci.com/charlawl/DublinBikeApp)
+[![Build Status](https://travis-ci.com/charlawl/DublinBikeApp.svg?token=67ZRMCE3p6XpMKUH71z1&branch=master)](https://travis-ci.com/charlawl/DublinBikeApp)
 
 # DublinBikeApp
 

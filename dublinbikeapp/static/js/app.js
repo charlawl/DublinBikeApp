@@ -1,6 +1,7 @@
 var infoWindow;
 const chart_colors = ['#59b75c', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
 const backgroundColor = '#fff';
+var icon;
 function drawChart(chart_data) {
     var data = google.visualization.arrayToDataTable(chart_data);
     //   var data = new google.visualization.arrayToDataTable(chart_data);
@@ -103,6 +104,13 @@ function initMap() {
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < station_data.length; i++) {
             var latlng = new google.maps.LatLng(station_data[i].position_lat, station_data[i].position_long);
+            if (station_data[i].available_bikes >= 20) {
+                icon = "http://labs.google.com/ridefinder/images/mm_20_green.png"
+            }else if(station_data[i].available_bikes >= 10 && station_data[i].available_bikes < 20){
+                icon = "http://labs.google.com/ridefinder/images/mm_20_yellow.png"
+            }else{
+               icon = "http://labs.google.com/ridefinder/images/mm_20_red.png"
+            }
             createMarker(latlng,
                 station_data[i].name,
                 station_data[i].address,
@@ -119,11 +127,12 @@ function initMap() {
     get_data(show_stations, "stations");
 
     function createMarker(latlng, name, address, st_number, last_update, available_bikes, available_bike_stands) {
+
         var marker = new google.maps.Marker({
             map: map,
             position: latlng,
             title: name,
-            icon: "http://labs.google.com/ridefinder/images/mm_20_blue.png"
+            icon: icon
         });
         google.maps.event.addListener(marker, 'click', function () {
             var info_box_content = '<div class="info_box">' +

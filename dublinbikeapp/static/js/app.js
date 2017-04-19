@@ -1,4 +1,6 @@
 var infoWindow;
+const chart_colors = ['#59b75c', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
+const backgroundColor = '#fff';
 function drawChart(chart_data) {
     var data = google.visualization.arrayToDataTable(chart_data);
     //   var data = new google.visualization.arrayToDataTable(chart_data);
@@ -12,21 +14,28 @@ function drawChart(chart_data) {
             position: 'top',
             maxLines: 3
         },
+        animation:{
+        duration: 1000,
+        easing: 'out',
+      },
+        colors: chart_colors,
         bar: {
             groupWidth: '75%'
         },
         isStacked: true,
+        backgroundColor: backgroundColor
     };
-    var chart = new google.visualization.ColumnChart(document.getElementById('data_chart'));
+    var chart = new google.visualization.ColumnChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
 }
 
 function click_marker(st_number) {
     get_data(drawChart, "stations", st_number);
 }
+var map, heatmap;
 
 function initMap() {
-    var map, heatmap;
+
     var dublin = {
         lat: 53.3575945,
         lng: -6.2613842
@@ -34,7 +43,8 @@ function initMap() {
     var mapOptions = {
         center: dublin,
         zoom: 15,
-        mapTypeId: 'roadmap'
+        mapTypeId: 'roadmap',
+        styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"},{"color":"#efebe2"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"visibility":"on"},{"color":"#cea2a2"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#5d83a0"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"landscape","elementType":"labels.text.fill","stylers":[{"color":"#5d83a0"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#5d83a0"}]},{"featureType":"poi.attraction","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.government","elementType":"all","stylers":[{"color":"#dfdcd5"}]},{"featureType":"poi.medical","elementType":"all","stylers":[{"color":"#dfdcd5"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"color":"#b1d66c"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#72bc8e"}]},{"featureType":"poi.place_of_worship","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.school","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.sports_complex","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#5d83a0"},{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"labels.text.stroke","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#fbfbfb"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dafd6"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#8d96b3"}]}]
     };
     map = new google.maps.Map(document.getElementById('map__box__locations'), mapOptions);
 
@@ -44,12 +54,19 @@ function initMap() {
         url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a982c88ae2bd27c612550bff6eedaa3e8e25d8bc&contract=Dublin',
         dataType: "json",
         success: function(data) {
-            result = [];
+            var result = [];
+            var weigth_point;
             // create new spot for heatmap for stations with less than 5 bikes available
             for (var i = 0; i < data.length; i++) {
-                if (data[i].available_bikes < 5) {
-                    result.push(new google.maps.LatLng(data[i].position.lat, data[i].position.lng))
+                if (data[i].bike_stands >= 40)
+                    weigth_point = 0.1
+                else {
+                    weight_point = 1
                 }
+                result.push({
+                    location: new google.maps.LatLng(data[i].position.lat, data[i].position.lng),
+                    weight: weigth_point
+                });
             }
             // draw the heatmap
             heatmap = new google.maps.visualization.HeatmapLayer({
@@ -104,4 +121,7 @@ function weather_display(data) {
     console.log(data);
 }
 
+function toggleHeatmap() {
+    heatmap.setMap(heatmap.getMap() ? null : map);
+}
 weather_forecast(weather_display);

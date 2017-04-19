@@ -96,6 +96,7 @@ class UsageData(Base):
             station.extend([(0,0,0)])
         return station
 
+
     @classmethod
     def get_bikes_for_week(cls, dbsession, station_id):
         station = [("Day", "Available Bikes")]
@@ -109,6 +110,7 @@ class UsageData(Base):
             station.extend([(days[a], float(b)) for a, b in station_data])
         else:
             station.extend([(0,0)])
+
         return station
 
 

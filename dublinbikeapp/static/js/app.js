@@ -4,7 +4,6 @@ const chart_colors = ['#59b75c', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
 const backgroundColor = '#fff';
 var icon;
 function drawChart(chart_data) {
-    console.log(chart_data);
     var data = google.visualization.arrayToDataTable(chart_data);
     var options = {
         chart: {
@@ -63,11 +62,12 @@ function drawWeekChart(chart_data){
 
 }
 
-
 function click_list(number, latlng) {
     return function () {
         map.setZoom(16);
         map.setCenter(latlng);
+        document.st_number = number;
+
         return click_marker(number);
     };
 }
@@ -76,19 +76,26 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('#rain_check_box').addEventListener('change', checkbox);
 });
 
-function checkbox(){
-    if (document.getElementById('rain_check_box').checked) {
-        get_data(drawChart, "getRainDay", document.st_number);
-    } else {
-        get_data(drawChart, "stations_weekday", document.st_number);
-    }
-}
 
 function click_marker(st_number) {
     document.getElementById('rain_check_div').style.display = 'block';
     get_data(drawChart, "stations_weekday", st_number);
     get_data(drawWeekChart, "stations_weekly", st_number);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+      document.querySelector('#rain_check_box').addEventListener('change', checkbox);
+});
+
+function checkbox(){
+    if (document.getElementById('rain_check_box').checked) 
+      {
+        get_data(drawChart, "getRainDay", document.st_number);
+    }else{
+        get_data(drawChart, "stations_weekday", document.st_number);
+    }
+}
+
 
 var map, heatmap;
 

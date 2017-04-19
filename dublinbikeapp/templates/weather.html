@@ -1,13 +1,13 @@
 <div class="wrap panel well panel-success">
 	<div class="day panel-heading">
-		<h2><em>Dublin</em></h2>
-		<h2>{{ weather_data[0]['weekday'] }}</h2>
-		<h2>{{ weather_data[0]['date'] }}</h2>
-		<h2>{{ weather_data[0]['temp']['day'] }} <sup>o</sup>C</h2>
+		<h6>Dublin</h6>
+		<h6>{{ weather_data[0]['weekday'] }}</h6>
+		<h6>{{ weather_data[0]['date'] }}</h6>
+		<h6>{{ weather_data[0]['temp']['day'] }} <sup>o</sup>C</h6>
 		<img src="{{url_for('static', filename=weather_data[0]['icon_filename']) }}" alt="" width=90>
-		<img src="{{url_for('static', filename='icons/icon-umberella.png')}}" alt=""><h2>{{ weather_data[0]['humidity'] }}%</h2>
-		<img src="{{url_for('static', filename='icons/icon-wind.png')}}" alt=""><h2>{{ weather_data[0]['speed'] }}km/h</h2>
-		<img src="{{url_for('static', filename='icons/icon-compass.png')}}" alt=""><h2>{{ weather_data[0]['deg'] }}</h2>
+		<img src="{{url_for('static', filename='icons/icon-umberella.png')}}" alt=""><h6>{{ weather_data[0]['humidity'] }}%</h6>
+		<img src="{{url_for('static', filename='icons/icon-wind.png')}}" alt=""><h6>{{ weather_data[0]['speed'] }}km/h</h6>
+		<img src="{{url_for('static', filename='icons/icon-compass.png')}}" alt=""><h6>{{ weather_data[0]['deg'] }}</h6>
 	</div>
 	<div class="forecast-table panel-body">
 		{% for day in weather_data[1:-1] %}

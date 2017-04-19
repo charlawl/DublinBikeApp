@@ -8,46 +8,15 @@ h1,h2,h3,h4,h5,h6{
 	padding: 0.3rem;
 	font-family: "Lato", sans-serif;
 }
-h1{
-	font-size: 1.8rem;
-}
-h2{
-	font-size: 1.6rem;
-}
-h3{
-	font-size: 1.5rem;
-}
-h4{
-	font-size: 1.4rem;
-}
-h5{
-	font-size: 1.2rem;
-}
-h6{
-	font-size: 1.1rem;
-}
-p{
-	font-size: 1rem;
-}
 
-/*MAP*/
-.map{
-  display: flex;
-	flex-flow: row wrap;
-	padding: 0.4rem;
-}
 .info_box_title:hover{
 	cursor: pointer;
 }
-aside{
-	width:  50%;
-}
+
 #map__box__locations,
 .data{
 	padding: 0.4rem;
 	height: 70vh;
-  /* width: 60vh; */
-	min-width:  50%;
 	overflow:hidden;
 }
 .map__box{
@@ -60,12 +29,10 @@ aside{
 footer{
 	background-color: #36454F;
 	color: whitesmoke;
-    width: 100vw;
-	/*padding: 0.4rem;*/
-    display: inline-block;
-    bottom : 0;
-    height : 60px;
-    /*margin-bottom : -35px;*/
+  width: 100vw;
+  display: inline-block;
+  bottom : 0;
+  height : 60px;
 }
 footer .developers{
 	text-align: center;
@@ -94,6 +61,7 @@ footer span{
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	color:  white;
 }
 .panel-success>.panel-heading {
     color: white;
@@ -104,9 +72,24 @@ footer span{
     border-color: #313131;
 }
 .forecast-table img{
-	max-width: 2rem;
+	max-width: 1.5rem;
+	height: 1.5rem;
 }
-
+.wrap.panel.well.panel-success {
+    background-color: #313131;
+    border-radius: 0;
+}
+.well,.panel-body{
+	padding: 0;
+}
+img {
+    vertical-align: middle;
+    width: 24px;
+}
+.panel.panel-success>.panel-heading {
+    background-color: #313131;
+}
 #donut_single {
 	height: 15vh;
 }
+

@@ -14,25 +14,38 @@
 
   	<!-- Bootstrap Material Design -->
   	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
-  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/ripples.css' )}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/material.css' )}}">
 		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/custom.css' )}}">
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 
-		<header>
+		<header class="panel">
 			<h1>Dublin Bikes App</h1>
 		</header>
     {% include 'weather.html' %}
 		<div class="container">
-			<section class="map row">
-				<div class="map__box col-sm-6 col-md-6 col-xs-12">
+		<div class="row">
+			<form class="form-horizontal">
+  			<fieldset>
+			  	<button type="button" class="btn btn-success btn-raised" onclick="toggleHeatmap();return false;">Toggle Heatmap</button>
+			  </fieldset>
+			 </form>
+		</div><!-- /.row -->
+		<div class="row panel">
+			<section class="map col-sm-12 col-md-12 col-xs-12">
+				<div class="map__box">
 					<div id="map__box__locations"></div>
 				</div><!-- /.map -->
-				<aside class="col-sm-6 col-md-6 col-xs-12">
-					<p>Click on a map marker to see the averages for the station over 24 Hours</p>
-					<div id="data_chart"></div><!-- /.data -->
-				</aside>
 			</section>
+		</div><!-- /.row -->
+			<div class="row">
+				<div id="series_chart_div" class="col-sm-12 col-md-6 col-xs-12 panel"></div><!-- /#series_chart_div -->
+				<div id="series_weather_chart_div" class="col-sm-12 col-md-6 col-xs-12 panel"></div><!-- /#series_chart_div -->
+			</div><!-- /.row -->
 		</div><!-- /.container -->
 	<footer>
 		<h5>Developed by</h5>
@@ -40,7 +53,6 @@
 			<span><a href="https://github.com/charlawl" target="blank">Charlotte</a></span><span><a href="https://github.com/lookonthebrightside" target="blank">Nkosi</a></span><span><a href="https://github.com/hinfeyg2" target="blank">Gavin</a></span>
 		</p><!-- /.developers -->
 	</footer>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type=text/javascript src="{{url_for('static', filename='js/requests.js') }}"></script>
 	<script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgq4yrfltcq5whIspSNsuNMqXIPp8qANs&libraries=visualization&callback=initMap"></script>

@@ -79,7 +79,6 @@ footer span{
     background-color: #313131;
     border-radius: 0;
 }
-
 .well,.panel-body{
 	padding: 0;
 }
@@ -90,3 +89,7 @@ img {
 .panel.panel-success>.panel-heading {
     background-color: #313131;
 }
+#donut_single {
+	height: 15vh;
+}
+

@@ -35,14 +35,18 @@ def get_station(station_id):
         return jsonify(UsageData.get_bikes_for_weekday(db_session, datetime.today().weekday(), station_id))
 
     else:
-        entries = db_session.query(Station).all()
-        fields = ['number', 'name', 'address', 'position_lat', 'position_long']
-        json_station = []
-        for station in entries:
-            data = {f: getattr(station, f) for f in fields}
-            json_station.append(data)
+        static_info = db_session.query(Station.number,
+                                       Station.name,
+                                       Station.address,
+                                       Station.position_lat,
+                                       Station.position_long).all()
+        dynamic_info = Station.get_current_station_info(db_session)
+        static_fields = ['number', 'name', 'address', 'position_lat', 'position_long']
+        dynamic_fields = ['last_update', 'available_bike_stands', 'available_bikes']
 
-        return jsonify(json_station)
+        json_data = [dict(zip(static_fields+dynamic_fields, static+dynamic)) for static, dynamic in zip(static_info, dynamic_info)]
+
+        return jsonify(json_data)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host='localhost')

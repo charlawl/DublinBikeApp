@@ -6,8 +6,8 @@
 	 xml:space="preserve">
 <g>
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="40.147" y1="1.2949" x2="0.8528" y2="40.5891">
-		<stop  offset="0" style="stop-color:#31C2DD"/>
-		<stop  offset="1" style="stop-color:#0B9BD7"/>
+		<stop  offset="0" style="stop-color:#59b75c"/>
+		<stop  offset="1" style="stop-color:#59b75c"/>
 	</linearGradient>
 	<path style="fill:url(#SVGID_1_);" d="M34.134,7.355c-0.548,0-1.094,0.043-1.637,0.128C30.625,2.992,26.244,0,21.24,0
 		C15.361,0,10.372,4.262,9.258,9.858C4.131,9.987,0,14.198,0,19.355c0,4.159,2.781,7.899,6.713,9.08c0.845,0.278,1.72,0.42,2.6,0.42
@@ -17,8 +17,8 @@
 		C13.118,7.612,16.802,4,21.24,4c3.828,0,7.113,2.605,7.991,6.336l0.513,2.182l2.109-0.757c0.748-0.27,1.516-0.405,2.281-0.405
 		c3.722,0,6.75,3.028,6.75,6.75C40.884,21.067,38.988,23.655,36.164,24.544z"/>
 	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="49.103" y1="10.2515" x2="9.8093" y2="49.5452">
-		<stop  offset="0" style="stop-color:#31C2DD"/>
-		<stop  offset="1" style="stop-color:#0B9BD7"/>
+		<stop  offset="0" style="stop-color:#59b75c"/>
+		<stop  offset="1" style="stop-color:#59b75c"/>
 	</linearGradient>
 	<path style="fill:url(#SVGID_2_);" d="M24.941,34.459h-2.309l0.558-0.902c0.436-0.705,0.217-1.63-0.487-2.065
 		c-0.705-0.435-1.629-0.218-2.064,0.487l-1.973,3.191c-0.286,0.463-0.299,1.044-0.034,1.52c0.265,0.475,0.766,0.77,1.31,0.77h2.438

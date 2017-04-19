@@ -25,7 +25,7 @@ class FlaskTestCase(unittest.TestCase):
 		# tester is a dummy of our app
 		tester = app.test_client(self)
 		response = tester.get('/stations/', content_type='application/json')
-		self.assertEqual(response.content_length, 27491)
+		self.assertEqual(response.content_length, 27492)
 
 
 if __name__ == '__main__':

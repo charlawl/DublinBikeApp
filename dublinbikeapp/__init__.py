@@ -27,49 +27,42 @@ def homepage():
 
     return render_template("index.html", weather_data=data)
 
-@app.route("/stations/<station_id>")
-@app.route("/stations/", defaults={"station_id": None})
-def get_station(station_id):
-    if station_id:
-        station = [("Time", "Available Bikes", "Available Stands")]
-        return jsonify(UsageData.get_bikes_for_weekday(db_session, datetime.today().weekday(), station_id))
 
-    else:
-        static_info = db_session.query(Station.number,
-                                       Station.name,
-                                       Station.address,
-                                       Station.position_lat,
-                                       Station.position_long).all()
-        dynamic_info = Station.get_current_station_info(db_session)
-        static_fields = ['number', 'name', 'address', 'position_lat', 'position_long']
-        dynamic_fields = ['last_update', 'available_bike_stands', 'available_bikes']
+@app.route("/stations_weekday/<station_id>")
+def get_station_data_weekday(station_id):
+    data = UsageData.get_bikes_for_weekday(db_session, datetime.today().weekday(), station_id)
+    return jsonify(data)
 
-        json_data = [dict(zip(static_fields+dynamic_fields, static+dynamic)) for static, dynamic in zip(static_info, dynamic_info)]
 
-        return jsonify(json_data)
+@app.route("/stations_weekly/<station_id>")
+def get_station_data_weekly(station_id):
+    data = UsageData.get_bikes_for_week(db_session, station_id)
+    return jsonify(data)
+
 
 @app.route("/getRainDay/<station_id>")
-@app.route("/getRainDay/", defaults={"station_id": None})
 def get_weather(station_id):
-    if station_id:
-        # run a query to get today but wet.
-        wetDay = Weather.findWetWeatherDays(db_session, datetime.today().weekday())
-        # pass that day into the get bikes db and return the average bike usage for that day.
-        return jsonify(UsageData.get_bikes_for_wetday(db_session, wetDay, station_id))
+    # run a query to get today but wet.
+    wetDay = Weather.findWetWeatherDays(db_session, datetime.today().weekday())
+    # pass that day into the get bikes db and return the average bike usage for that day.
+    return jsonify(UsageData.get_bikes_for_wetday(db_session, wetDay, station_id))
 
-    else:
-        static_info = db_session.query(Station.number,
-                                       Station.name,
-                                       Station.address,
-                                       Station.position_lat,
-                                       Station.position_long).all()
-        dynamic_info = Station.get_current_station_info(db_session)
-        static_fields = ['number', 'name', 'address', 'position_lat', 'position_long']
-        dynamic_fields = ['last_update', 'available_bike_stands', 'available_bikes']
 
-        json_data = [dict(zip(static_fields+dynamic_fields, static+dynamic)) for static, dynamic in zip(static_info, dynamic_info)]
+@app.route("/stations/")
+def get_station():
 
-    return jsonify(json_station)
+    static_info = db_session.query(Station.number,
+                                   Station.name,
+                                   Station.address,
+                                   Station.position_lat,
+                                   Station.position_long).all()
+    dynamic_info = Station.get_current_station_info(db_session)
+    static_fields = ['number', 'name', 'address', 'position_lat', 'position_long']
+    dynamic_fields = ['last_update', 'available_bike_stands', 'available_bikes']
+
+    json_data = [dict(zip(static_fields+dynamic_fields, static+dynamic)) for static, dynamic in zip(static_info, dynamic_info)]
+    return jsonify(json_data)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host='localhost')

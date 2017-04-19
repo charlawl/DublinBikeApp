@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float, Boolean, DateTime
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine, func
@@ -78,7 +78,18 @@ class UsageData(Base):
         station.extend([(a, float(b), float(c)) for a, b, c in station_data])
         return station
 
+    @classmethod
+    def get_bikes_for_wetday(cls, dbsession, wetdate, station_id):
 
+        station = [("Time", "Available Bikes", "Available Stands")]
+        
+        station_data = dbsession.query(
+            func.hour(cls.last_update),
+            func.avg(cls.available_bikes),
+            func.avg(cls.available_bike_stands)).filter(cls.station_id == station_id, func.date(cls.last_update) == wetdate.date()).group_by(func.hour(cls.last_update)).all()
+
+        station.extend([(a, float(b), float(c)) for a, b, c in station_data])
+        return station
 
 
 class Weather(Base):
@@ -110,6 +121,18 @@ class Weather(Base):
     city_id = Column(Integer)
     city_name = Column(String(6))
     cod = Column(Integer)
+
+    @classmethod
+    def findWetWeatherDays(self, dbsession, today):
+
+        wetDays = dbsession.query(self.dt).filter(or_(self.weather_description == "light rain", self.weather_description == "moderate rain")).all()
+        
+        for i in range(len(wetDays)):
+            if today == wetDays[i][0].weekday():
+                return wetDays[i][0]
+        else:
+            return wetDays[0][0]
+
 
 # path to DB
 engine = create_engine('mysql+mysqldb://hinfeyg2:ftz6wn77@dubbikesinstance.ct0jhxantvpy.eu-west-1.rds.amazonaws.com:3306/dublinbikesdata', poolclass=NullPool)

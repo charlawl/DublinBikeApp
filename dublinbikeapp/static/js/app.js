@@ -1,4 +1,5 @@
 var infoWindow;
+st_number = 0;
 const chart_colors = ['#59b75c', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
 const backgroundColor = '#fff';
 function drawChart(chart_data) {
@@ -32,7 +33,21 @@ function drawChart(chart_data) {
     chart.draw(data, options);
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+      document.querySelector('#rain_check_box').addEventListener('change', checkbox);
+});
+
+function checkbox(){
+    if (document.getElementById('rain_check_box').checked) 
+      {
+        get_data(drawChart, "getRainDay", document.st_number);
+    }else{
+        get_data(drawChart, "stations", document.st_number);
+    }
+}
+
 function click_marker(st_number) {
+    document.getElementById('rain_check_div').style.display = 'block';
     get_data(drawChart, "stations", st_number);
 }
 var map, heatmap;
@@ -126,6 +141,7 @@ function initMap() {
             icon: "http://labs.google.com/ridefinder/images/mm_20_blue.png"
         });
         google.maps.event.addListener(marker, 'click', function () {
+            document.st_number = st_number;
             var info_box_content = '<div class="info_box">' +
                 '<div class="info_box_title" onclick="return click_marker(' + st_number + ');">' +
                 '<a><center>' + name + '</center></a></div><hr>' +

@@ -8,7 +8,7 @@ from sqlalchemy.pool import NullPool
 from datetime import datetime
 
 Base = declarative_base()
-
+days = ['M','T','W','T','F', 'S', 'S']
 
 class Station(Base):
     __tablename__ = "station"
@@ -22,8 +22,6 @@ class Station(Base):
     bonus = Column(Boolean, nullable=True)
     station_usage = relationship("UsageData", lazy="dynamic")
 
-    # def to_json(self):
-    #     return {k: v for k, v in self.__dict__.items() if not k.startswith("_")}
 
     @property
     def last_updated(self):
@@ -64,7 +62,6 @@ class UsageData(Base):
 
     @classmethod
     def get_bikes_for_weekday(cls, dbsession, weekday, station_id):
-        # weekday = 6
         station = [("Time", "Available Bikes", "Available Stands")]
 
         station_data = dbsession.query(func.hour(cls.last_update),
@@ -75,10 +72,27 @@ class UsageData(Base):
             .group_by(func.hour(cls.last_update)) \
             .all()
 
-        station.extend([(a, float(b), float(c)) for a, b, c in station_data])
+        if station_data:
+            station.extend([(a, float(b), float(c)) for a, b, c in station_data])
+        else:
+            station.extend([(0,0,0)])
         return station
 
 
+    @classmethod
+    def get_bikes_for_week(cls, dbsession, station_id):
+        station = [("Day", "Available Bikes")]
+        station_data = dbsession.query(func.weekday(cls.last_update),
+                                       func.avg(cls.available_bikes)) \
+            .filter(cls.station_id == station_id) \
+            .group_by(func.weekday(cls.last_update)) \
+            .all()
+
+        if station_data:
+            station.extend([(days[a], float(b)) for a, b in station_data])
+        else:
+            station.extend([(0,0)])
+        return station
 
 
 class Weather(Base):

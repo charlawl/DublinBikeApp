@@ -1,61 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>DublinBike</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css_reset.css' )}}">
-		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-		<!-- Material Design fonts -->
-  	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-  	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <meta charset="UTF-8"/>
+    <title>DublinBike</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/css_reset.css' ) }}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
-  	<!-- Bootstrap -->
-  	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-  	<!-- Bootstrap Material Design -->
-  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
+    <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
 
-		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/ripples.css' )}}">
-		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/material.css' )}}">
-		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/custom.css' )}}">
-  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ripples.css' ) }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/material.css' ) }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css' ) }}">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 
-		<header class="panel">
-			<h1>Dublin Bikes App</h1>
-		</header>
-    {% include 'weather.html' %}
-		<div class="container">
-		<div class="row">
-			<form class="form-horizontal">
-  			<fieldset>
-			  	<button type="button" class="btn btn-success btn-raised" onclick="toggleHeatmap();return false;">Toggle Heatmap</button>
-			  </fieldset>
-			 </form>
-		</div><!-- /.row -->
-		<div class="row panel">
-			<section class="map col-sm-12 col-md-12 col-xs-12">
-				<div class="map__box">
-					<div id="map__box__locations"></div>
-				</div><!-- /.map -->
-			</section>
-		</div><!-- /.row -->
-			<div class="row">
-				<div id="series_chart_div" class="col-sm-12 col-md-6 col-xs-12 panel"></div><!-- /#series_chart_div -->
-				<div id="series_weather_chart_div" class="col-sm-12 col-md-6 col-xs-12 panel"></div><!-- /#series_chart_div -->
-			</div><!-- /.row -->
-		</div><!-- /.container -->
-	<footer>
-		<h5>Developed by</h5>
-		<p class="developers">
-			<span><a href="https://github.com/charlawl" target="blank">Charlotte</a></span><span><a href="https://github.com/lookonthebrightside" target="blank">Nkosi</a></span><span><a href="https://github.com/hinfeyg2" target="blank">Gavin</a></span>
-		</p><!-- /.developers -->
-	</footer>
-  <script type=text/javascript src="{{url_for('static', filename='js/requests.js') }}"></script>
-	<script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgq4yrfltcq5whIspSNsuNMqXIPp8qANs&libraries=visualization&callback=initMap"></script>
+<header class="panel">
+    <h1>Dublin Bikes App</h1>
+</header>
+
+{% with weather_data=weather_data  %}
+{% include 'weather.html' %}
+{% endwith %}
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal">
+            <fieldset>
+                <button type="button" class="btn btn-success btn-raised" onclick="toggleHeatmap();return false;">Toggle
+                    Heatmap
+                </button>
+            </fieldset>
+        </form>
+
+        <div class="dropdown">
+            <button id="dropdownBtn" onclick="stationDropdown()" class="btn btn-success btn-raised">Station List</button>
+            <div id="myDropdown" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+
+            </div>
+        </div>
+    </div><!-- /.row -->
+    <div class="row panel">
+        <section class="map col-sm-12 col-md-12 col-xs-12">
+            <div class="map__box">
+                <div id="map__box__locations"></div>
+            </div><!-- /.map -->
+        </section>
+    </div><!-- /.row -->
+    <div class="row">
+        <div id="series_chart_div" class="col-sm-12 col-md-6 col-xs-12 panel"></div><!-- /#series_chart_div -->
+        <div id="series_weather_chart_div" class="col-sm-12 col-md-6 col-xs-12 panel"></div><!-- /#series_chart_div -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+<footer>
+    <h5>Developed by</h5>
+    <p class="developers">
+        <span><a href="https://github.com/charlawl" target="blank">Charlotte</a></span><span><a
+            href="https://github.com/lookonthebrightside" target="blank">Nkosi</a></span><span><a
+            href="https://github.com/hinfeyg2" target="blank">Gavin</a></span>
+    </p><!-- /.developers -->
+</footer>
+<script type=text/javascript src="{{ url_for('static', filename='js/requests.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgq4yrfltcq5whIspSNsuNMqXIPp8qANs&libraries=visualization&callback=initMap"></script>
 
 </body>
 </html>

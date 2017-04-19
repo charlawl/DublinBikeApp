@@ -35,6 +35,7 @@ function initMap() {
         lat: 53.3575945,
         lng: -6.2613842
     };
+
     var mapOptions = {
         center: dublin,
         zoom: 10,
@@ -42,6 +43,18 @@ function initMap() {
     };
 
     map = new google.maps.Map(document.getElementById('map__box__locations'), mapOptions);
+
+    //Transit layer(doesn't work for dublin - only shows luas line)
+    // var transitLayer = new google.maps.TransitLayer();
+    // transitLayer.setMap(map);
+
+    //Bike layer
+    var bikeLayer = new google.maps.BicyclingLayer();
+        bikeLayer.setMap(map);
+
+    //Transit layer (?)
+    // var trafficLayer = new google.maps.TrafficLayer();
+    //     trafficLayer.setMap(map);
 
     // Get data from bikes api======
     var result;
@@ -107,32 +120,51 @@ function initMap() {
             infoWindow.open(map, marker);
 
             var data = google.visualization.arrayToDataTable([
-                ['Options', 'Number'],
-                ['Available Bikes', available_bikes],
-                ['Available Stands', available_bike_stands]
-            ]);
+            ['Bikes', 'Bikes', 'Stands'],
+            ['Bikes vs Stands', available_bikes, available_bike_stands]
+                ]);
 
             var options = {
-                slices: {
-                    0: {color: 'Gold'},
-                    1: {color: 'Crimson'}
+            chartArea: {width: '50%', height:'40%'},
+            isStacked: true,
+            hAxis: {
+              minValue: 0,
                 },
-                pieHole: 0.5,
-                pieSliceText: 'value',
-                pieSliceTextStyle: {
-                    color: 'black'
-                }
-            };
 
-            var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+                };
+            var chart = new google.visualization.BarChart(document.getElementById('donut_single'));
             chart.draw(data, options);
+
+            // var data = google.visualization.arrayToDataTable([
+            //     ['Options', 'Number'],
+            //     ['Available Bikes', available_bikes],
+            //     ['Available Stands', available_bike_stands]
+            // ]);
+            //
+            // var options = {
+            //     slices: {
+            //         0: {color: 'Gold'},
+            //         1: {color: 'Crimson'}
+            //     },
+            //     pieHole: 0.5,
+            //     pieSliceText: 'value',
+            //     pieSliceTextStyle: {
+            //         color: 'black'
+            //     }
+            // };
+            //
+            // var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+            // chart.draw(data, options);
 
         });
     }
 
     google.charts.load('current', {
-        'packages': ['corechart']
-    });
+        packages: ['corechart', 'bar']});
+
+    // google.charts.load('current', {
+    //     'packages': ['corechart']
+    // });
 }
 
 function weather_display(data) {

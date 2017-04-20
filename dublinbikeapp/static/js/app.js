@@ -178,6 +178,7 @@ function initMap() {
 
             dropDownElement.onclick = click_list(station_data[i].number, latlng);
             dropDownElement.innerHTML = station_data[i].address;
+            dropDownElement.class = "station-list";
             document.getElementById("myDropdown").appendChild(dropDownElement);
         }
         map.fitBounds(bounds);
@@ -265,7 +266,9 @@ weather_forecast(weather_display);
 
 window.onload = function () {
     document.body.onclick = function (e) {
-        if (e.target.id !== "dropdownBtn") {
+        console.log(e.target.id);
+        if (!(e.target.id == "dropdownBtn" || e.target.id == "myInput" || e.target.classList.contains("station-list") )) {
+            console.log(e.target.id);
             if (document.getElementById("myDropdown").classList.contains("show")) {
                 document.getElementById("myDropdown").classList.toggle("show");
             }

@@ -13,7 +13,7 @@ class FlaskTestCase(unittest.TestCase):
 		# tester is a dummy of our app
 		tester = app.test_client(self)
 		response = tester.get('/', content_type='html/text')
-		self.assertTrue(b'Dublin Bikes App' in response.data)
+		self.assertTrue(b'Dublin Bike Info' in response.data)
 
 	def test_station_json(self):
 		# tester is a dummy of our app

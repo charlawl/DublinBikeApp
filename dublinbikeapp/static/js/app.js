@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function checkbox(){
-    if (document.getElementById('rain_check_box').checked) 
+    if (document.getElementById('rain_check_box').checked)
       {
         get_data(drawChart, "getRainDay", document.st_number);
     }else{
@@ -109,132 +109,7 @@ function initMap() {
     var mapOptions = {
         center: dublin,
         zoom: 10,
-        mapTypeId: 'roadmap',
-        // styles: [{
-        //     "featureType": "all",
-        //     "elementType": "labels",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {
-        //     "featureType": "administrative",
-        //     "elementType": "all",
-        //     "stylers": [{"visibility": "off"}, {"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "administrative",
-        //     "elementType": "labels.text",
-        //     "stylers": [{"visibility": "on"}, {"color": "#cea2a2"}]
-        // }, {
-        //     "featureType": "administrative",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"color": "#5d83a0"}]
-        // }, {
-        //     "featureType": "administrative",
-        //     "elementType": "labels.text.stroke",
-        //     "stylers": [{"visibility": "on"}, {"color": "#ffffff"}]
-        // }, {
-        //     "featureType": "landscape",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "landscape",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"color": "#5d83a0"}]
-        // }, {
-        //     "featureType": "poi",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"color": "#5d83a0"}]
-        // }, {
-        //     "featureType": "poi.attraction",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "poi.business",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "poi.government",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#dfdcd5"}]
-        // }, {
-        //     "featureType": "poi.medical",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#dfdcd5"}]
-        // }, {
-        //     "featureType": "poi.park",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#b1d66c"}]
-        // }, {
-        //     "featureType": "poi.park",
-        //     "elementType": "geometry.fill",
-        //     "stylers": [{"color": "#72bc8e"}]
-        // }, {
-        //     "featureType": "poi.place_of_worship",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "poi.school",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "poi.sports_complex",
-        //     "elementType": "all",
-        //     "stylers": [{"color": "#efebe2"}]
-        // }, {
-        //     "featureType": "road",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"color": "#5d83a0"}, {"visibility": "simplified"}]
-        // }, {
-        //     "featureType": "road.highway",
-        //     "elementType": "geometry.fill",
-        //     "stylers": [{"color": "#ffffff"}]
-        // }, {
-        //     "featureType": "road.highway",
-        //     "elementType": "geometry.stroke",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {
-        //     "featureType": "road.highway",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"visibility": "on"}]
-        // }, {
-        //     "featureType": "road.arterial",
-        //     "elementType": "geometry.fill",
-        //     "stylers": [{"color": "#ffffff"}]
-        // }, {
-        //     "featureType": "road.arterial",
-        //     "elementType": "geometry.stroke",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {
-        //     "featureType": "road.arterial",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"visibility": "on"}]
-        // }, {
-        //     "featureType": "road.arterial",
-        //     "elementType": "labels.text.stroke",
-        //     "stylers": [{"visibility": "on"}]
-        // }, {
-        //     "featureType": "road.local",
-        //     "elementType": "geometry.fill",
-        //     "stylers": [{"color": "#fbfbfb"}]
-        // }, {
-        //     "featureType": "road.local",
-        //     "elementType": "geometry.stroke",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {
-        //     "featureType": "road.local",
-        //     "elementType": "labels.text.fill",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {
-        //     "featureType": "road.local",
-        //     "elementType": "labels.text.stroke",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {
-        //     "featureType": "transit",
-        //     "elementType": "all",
-        //     "stylers": [{"visibility": "off"}]
-        // }, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#7dafd6"}]}, {
-        //     "featureType": "water",
-        //     "elementType": "geometry.fill",
-        //     "stylers": [{"color": "#8d96b3"}]
-        // }]
+        mapTypeId: 'roadmap'
     };
 
     map = new google.maps.Map(document.getElementById('map__box__locations'), mapOptions);
@@ -325,7 +200,7 @@ function initMap() {
             document.st_number = st_number;
             var info_box_content = '<div class="info_box">' +
                 '<div class="info_box_title" onclick="return click_marker(' + st_number + ');">' +
-                '<a><center>' + name + '</center></a></div><hr>' +
+                '<a href="#chart_boxes"><center>' + name + '</center></a></div><hr>' +
                 '<p> Last update: ' + last_update + '</p>' +
                 '<div id="donut_single"></div>';
 

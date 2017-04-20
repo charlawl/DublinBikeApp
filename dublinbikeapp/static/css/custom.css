@@ -22,18 +22,25 @@ h1,h2,h3,h4,h5,h6{
 .map__box{
 
 }
+.map{
+    padding: 0 !important;
+}
 .info_box{
 	font-weight: 600;
 }
+a, a:focus, a:hover {
+    color: #4caf50;
+}
 /*Footer*/
 footer{
-	background-color: #36454F;
-	color: whitesmoke;
+  background-color: #313131;
+  color: whitesmoke;
   width: 100vw;
   display: inline-block;
   bottom : 0;
   height : 60px;
 }
+
 footer .developers{
 	text-align: center;
 }
@@ -110,10 +117,9 @@ img {
     background-color: #3e8e41;
 }
 
-
 #myInput {
     border-box: box-sizing;
-    background-image: url('searchicon.png');
+    /* background-image: url('searchicon.png'); */
     background-position: 14px 12px;
     background-repeat: no-repeat;
     font-size: 16px;
@@ -148,7 +154,21 @@ img {
     display: block;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.dropdown a:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
 
 .show {display:block;}
-
+.logo{
+    width: 50px;
+}
+.top{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+.top h2{
+    font-family:  "Pacifico", cursive !important;
+}

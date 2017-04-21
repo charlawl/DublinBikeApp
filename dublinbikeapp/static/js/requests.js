@@ -1,4 +1,6 @@
 function get_data(callback, resource, resource_id) {
+    // call back function gets json for resource and resource id
+    // runs the callback with the json result.
 
     var xhr = new XMLHttpRequest();
     var response;
@@ -22,6 +24,7 @@ function get_data(callback, resource, resource_id) {
 }
 
 function weather_forecast(callback) {
+    // run the callback with the latest weather data.
     var xhr = new XMLHttpRequest();
 
     var daily = "http://api.openweathermap.org/data/2.5/forecast/daily?id=2964574&units=metric&APPID=1f0867a1f0c8ffc3bd29767c8aed1cb2";

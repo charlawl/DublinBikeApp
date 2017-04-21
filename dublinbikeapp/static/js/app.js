@@ -1,11 +1,16 @@
+// declare constants and global variables
 var infoWindow;
 st_number = 0;
 const chart_colors = ['#59b75c', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
 const backgroundColor = '#fff';
 var icon;
 function drawChart(chart_data) {
+    // this function draws the Google visualization chart.
+    // takes an input chart_data which is provided buy a jquery request.
     var data = google.visualization.arrayToDataTable(chart_data);
     var options = {
+        // set the options for the chart.
+        // options are specific to the daily bike usage chart.
         chart: {
             title: 'Bikes vs. Time',
             subtitle: 'Hourly dispaly of available bikes and bike stands'
@@ -34,8 +39,8 @@ function drawChart(chart_data) {
 }
 
 function drawWeekChart(chart_data){
-
-   var data = google.visualization.arrayToDataTable(chart_data);
+    // essentially same as drawChart just modified to work with weekly data.
+    var data = google.visualization.arrayToDataTable(chart_data);
     var options = {
         chart: {
             title: 'Bikes vs. Time',
@@ -63,6 +68,8 @@ function drawWeekChart(chart_data){
 }
 
 function click_list(number, latlng) {
+    // takes an input street number and a longitude and latitude.
+    // self explanatory: set map zoom and map center and st_number when called.
     return function () {
         map.setZoom(16);
         map.setCenter(latlng);
@@ -73,12 +80,19 @@ function click_list(number, latlng) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-      document.querySelector('#rain_check_box').addEventListener('change', checkbox);
+    // this is an event listener for the checkbox in the bottom left of the page.
+    // when its is clicked run the checkbox function.
+    document.querySelector('#rain_check_box').addEventListener('change', checkbox);
 });
 
 
 function click_marker(st_number) {
+    // run when a marker on the Google map is clicked.
+
+    // show the div in which the checkbox is placed. By default (when page is loaded) this is hidden.
     document.getElementById('rain_check_div').style.display = 'block';
+    // this is call to get_data to draw the graph. Get_data is a call back function. So the drawChart input will be run when get_data is run.
+    // more info about how 
     get_data(drawChart, "stations_weekday", st_number);
     get_data(drawWeekChart, "stations_weekly", st_number);
 }
@@ -88,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function checkbox(){
+    // change the graph when checked. If checked draw with wet data else draw with todays data.
     if (document.getElementById('rain_check_box').checked)
       {
         get_data(drawChart, "getRainDay", document.st_number);
@@ -100,6 +115,7 @@ function checkbox(){
 var map, heatmap;
 
 function initMap() {
+    // function to create the map.
 
     var dublin = {
         lat: 53.3575945,
@@ -112,6 +128,7 @@ function initMap() {
         mapTypeId: 'roadmap'
     };
 
+    // create the map object with the options above.
     map = new google.maps.Map(document.getElementById('map__box__locations'), mapOptions);
 
     //Bike Layer
@@ -155,8 +172,10 @@ function initMap() {
     });
 
     function show_stations(station_data) {
+        // function to show station markers at correct position on the map.
         var bounds = new google.maps.LatLngBounds();
 
+        // iterate over the data creating different colour icons depending on bike usage.
         for (var i = 0; i < station_data.length; i++) {
             var dropDownElement = document.createElement('a');
             var latlng = new google.maps.LatLng(station_data[i].position_lat, station_data[i].position_long);
@@ -188,9 +207,11 @@ function initMap() {
     }
 
     get_data(show_stations, "stations");
+    // show_stations is a callback functions for get_data
+    // so this essentially runs show_stations(get_data(stations))
 
     function createMarker(latlng, name, address, st_number, last_update, available_bikes, available_bike_stands) {
-
+        // all the javascript for creating the info box. The info box appears when a pin is clicked.
         var marker = new google.maps.Marker({
             map: map,
             position: latlng,
@@ -239,6 +260,7 @@ function weather_display(data) {
 }
 
 function toggleHeatmap() {
+    // as described toggles heatmap on and off.
     heatmap.setMap(heatmap.getMap() ? null : map);
 }
 

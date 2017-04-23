@@ -2,6 +2,8 @@
 
 # DublinBikeApp
 
+The live site is available here: [Dublin Bike Info](http://dublinbike.info/)
+
 This is the documentation for DublinBikesApplication. Here you will find all the technologies used in the software. You will also find detailed steps to get the project running on your local machine. This document also details some housekeeping rules and a coding style guide that should be used when contributing.
 
 ### Code Styleguide

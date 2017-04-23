@@ -4,22 +4,28 @@ from model import UsageData, Weather, Session, Station
 import requests
 import threading
 
+# API keys for Dublin Bikes and Weather API's
 api_key_bikes = "a982c88ae2bd27c612550bff6eedaa3e8e25d8bc"
 api_key_weather = "dac182eb7101ccaf65e1f8b9b524bf01"
 
 
 def scrape_bikes(api_key, city='Dublin'):
+    """Function to scrape Dublin Bikes API and insert returned data to the database in json format"""
     uri = "https://api.jcdecaux.com/vls/v1/stations"
+    # Formatting request structure
     r = requests.get(uri, params={'type': 'stations',
                                   'apiKey': api_key,
                                   'contract': city})
 
     insert_db_bikes(r.json())
+    # setting the scraper on a timer - every minute
     threading.Timer((60.0 * 1), scrape_bikes, kwargs={'api_key': api_key_bikes}).start()
 
 
 def scrape_weather(api_key):
+    """Function to scrape Open Weather Map API and insert returned data to the database in json format"""
     uri = "http://api.openweathermap.org/data/2.5/weather"
+    # Formatting request structure
     r = requests.get(uri, params={'type': 'weather',
                                   'appid': api_key,
                                   'units': 'metric',
@@ -27,17 +33,19 @@ def scrape_weather(api_key):
                                   })
 
     insert_db_weather(r.json())
+    # setting the scraper on a timer - every 3 hours
     threading.Timer((60.0 * 180), scrape_weather, kwargs={'api_key': api_key_weather}).start()
 
 
 def insert_db_bikes(values):
-
+    """Function for inserting scraped data from Bikes API into database"""
     fields = ['status', 'bike_stands', 'available_bike_stands', 'available_bikes']
 
     session = Session()
 
     for data in values:
         station = session.query(Station).get(data['number'])
+        # checking if the timestamp is greater than the last update to ensure no duplicates are added to the DB
         if datetime.fromtimestamp(data['last_update']/1000) > station.last_updated:
             new_data = UsageData(**{field: data[field] for field in fields})
             new_data.dt_last_update = data['last_update']
@@ -48,6 +56,7 @@ def insert_db_bikes(values):
 
 
 def insert_db_weather(weather_values):
+    """Function for inserting scraped data from Weather API into database"""
     session = Session()
     new_data = Weather(coord_lon=weather_values["coord"]["lon"],
                        coord_lat=weather_values["coord"]["lat"],
@@ -79,6 +88,6 @@ def insert_db_weather(weather_values):
     session.commit()
     session.close()
 
-
+# Running the scraper
 scrape_bikes(api_key_bikes)
 scrape_weather(api_key_weather)

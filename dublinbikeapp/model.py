@@ -180,7 +180,7 @@ class Weather(Base):
 
 
 # path to DB
-engine = create_engine('mysql+mysqldb://hinfeyg2:ftz6wn77@dubbikesinstance.ct0jhxantvpy.eu-west-1.rds.amazonaws.com:3306/dublinbikesdata', poolclass=NullPool)
+engine = create_engine('mysql+mysqldb://hinfeyg2:password@dubbikesinstance.ct0jhxantvpy.eu-west-1.rds.amazonaws.com:3306/dublinbikesdata', poolclass=NullPool)
 
 # create the session using sqlalchemy.
 db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))

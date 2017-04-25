@@ -1,14 +1,16 @@
 language:
-  - python
+- python
 python:
-  - "2.7.13"
-  - "3.4"
-  - "3.5"
-
-# command to install dependencies
+- 2.7.13
+- '3.4'
+- '3.5'
 install:
-  - "pip install requests"
-  - "pip install -r requirements.txt"
-# command to run tests
+- pip install requests
+- pip install -r requirements.txt
 script:
-  - python dublinbikeapp/tests.py -v
+- python dublinbikeapp/tests.py -v
+env:
+  global:
+  - secure: VG+NR9NWs6C0nz7LL4uYi7J51j6eUGymIJfmSGIzSvhkXOiut/0452OzcMl25c1TB0sU+LvjNBxt0Wzx9cFQ4yfWS1InQgKbcUrENCB9410fkhCROgCVDijJomyW/XCDDrCWMAMoFpeUsSCxsbGGTRw3hrVky5QfFH9tbQPBomXiDYoM0xLMAR3wa9QnBZYiZNaQ+UWkEsCQ3W3M7AedCQWLG3T1axc6gRt1Ob8wNJ/b+/AxnUlYGLe5tFBsKve5HmT7fEz3bf1G6XmGkZ1eGQq3Z2RxE8GZFW3p4nGgEeJGAnLSzndHnP9JshJ1SnSrVDWeK1mUwdOVOInMFcNGJHaz6h094qFEPdZkRLeLU9kwYXhZzUFR+9RcRbUm1nl41x/joOX8FptQUPonronsp3dxeeLM6yqXeJpziNcAMIgUMv3/+MRxblSjY07H8Mo/DuMvQfkogZcjQzS0v4MarrlDQvxlqO6rxjXkJum4XY/YGN8fS3lTq3zpRLwnHF1jTK7HsupjV5hGExglHPxkzQMyiLY/ojHtDn9t/n9VO5SW+IlRVvupF/EvAKpuE6MJ4//lew9Trs7eozKma4BxQ0ls1mUuYf9EPlbX80ayCq9qx/AJ87R1hAG8kYuJFidB0vhWWMQ56IDW7tFeSgZ/eJK+ZObjg/z7/p0aO/+l0Ic=
+  - secure: d61KXDFrCW0Q+5Yb51lpjQzCiQ1QBOkCA0rLg9ZH76nrwcVCu0CQi/br9vYbf8Bnc/YPQKeHLTP7Ujhaa4NMTGT1Hd74fJOhMi26USSlkKI2Ru0GyqhcJZ8Pf7M4QED1pGIEJzvF4W5aKtFbBydfBdnFyVSHv6+p10xeXqT0Nlx/v7uQSeLUSxQuonuMzM7bJH7blB6p8NR2QiuCrhaOlK7jbPbhzYlQiyo0knlCbXz8+YlzuVoQz+s5alMOD88rOoiz1Imy+vRqHQzQBviYEc0/G5o4nX+4gVViTrQEAR1k8Je2bZ1IItQ62SzsuKBz3pF2eOmMWSdYOgOqVyKejcXSbL3X91MoRvRldHkxrRQLTtWdVVb5M8+2QQmM0E8VuOfR2fLDAEHuV6Kd8mrA4gkdgg/ivr0MLhRDqggXToRE/SWGXXsZ/XSTc0wJhguddvDriuRuxWxrI3jsgWpNrlFQ55YT5qBTo30SwWx5mW08/H5jZs5DUJkk5cILpvGfkJDuOzSU3CTYk77hzyHqYoqcz5jq+G9Q1cqYs69cVrpSgbYV4RrdUYdiXXlX4tQYISZ28M02Di5IyrdRTDsngXcumWGD25pNi6jqFp9Qs6cCU4FFIGxERGdbOtgJKa8gFSAWPt/APA+Dz76JJzB21Ze4jrCF9ARNEppOVbJ5DjE=
+  - secure: Kuc028OC0TbqiNN3dYrrzJvouCYHQ0fMb3EXHae3do1WYPK3XmSYQXQ63EVllLYGRa+DRQOwbWwzK3LEFC06Fq5Nz2/EyMWPOjA3V0Pdqa7eelcm33xpszXMz1vkwkrQNKKDG9YfvdRoNzLUYLd1bc23pzY/XGNSZwsv4Sm646g0jch6XzCoSmkYMQXZexOLIb/bfRTWIIgxtDUYG7V6d5RkoLHODmWx+naxL+TfcVj+aHE3KLOJ5Iyf0phbn/qZQjaN3J7U1Y28PQDh0mAVM5ocwfv0WBosU3uUnZYBzzeOGad21yya5FibauX/H/u2+FdPdWAFunxQ8O6FSmY1lclyIUZVJnKTPdmZAjNY8NP2WI0euLO7YjjWgARbsLamdJvZ7m70SouPHUlNXVeAyfS/P8FWCrNcSDGaa7Bi45ThLb/nGuA5x6w4DPTWs4CKa7KJwOjjqdt6iwRFQwGeEu9Ve+OhK7zRLYi666BQP2Qo+p0NVcgvBEALgIMrTSsLsYF3vuVSinzMA7NMHEnEoz7YC0aB79jaCBny+1Cex1hDm8SG66t9n0QtiAW/nHSRz5SQAohTwZmOshBJ0hcrcAEfu4F6DDbywFx6gYCUQKy6u2v31yCSkSsO3LF/OS1TOVw98LZi300V7WxKfOYr/pw9OkPxxZyms+oqFRAIXtM=

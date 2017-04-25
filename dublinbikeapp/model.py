@@ -1,3 +1,5 @@
+import os
+
 from sqlalchemy import Column, ForeignKey, Integer, String, Float, Boolean, DateTime
 from sqlalchemy import and_, or_
 from sqlalchemy.ext.declarative import declarative_base
@@ -180,7 +182,10 @@ class Weather(Base):
 
 
 # path to DB
-engine = create_engine('mysql+mysqldb://hinfeyg2:ftz6wn77@dubbikesinstance.ct0jhxantvpy.eu-west-1.rds.amazonaws.com:3306/dublinbikesdata', poolclass=NullPool)
+connection_string='mysql+mysqldb://{username}:{password}@{host}:3306/dublinbikesdata'.format(username=os.environ['DatabaseUser'],
+                                                                                             password=os.environ['DatabasePassword'],
+                                                                                             host=os.environ['DatabaseServer'])
+engine = create_engine(connection_string, poolclass=NullPool)
 
 # create the session using sqlalchemy.
 db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
